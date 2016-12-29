@@ -15,14 +15,14 @@ gulp.task('default', ['start']);
 
 // Convert ES6 code in all js files in src/js folder and copy to
 // build folder as bundle.js
-gulp.task('build:static', ['image', 'clean'], () =>
-  gulp.src('./src/app/**/*.html').pipe(gulp.dest('./dist/static'))
-);
-gulp.task('image', ['clean'], () =>
-  gulp.src('./src/static/*')
+gulp.task('build:static', ['clean'], () =>
+  gulp.src('./src/app/static/*')
     .pipe(image())
     .pipe(gulp.dest('./dist/static'))
 );
+// gulp.task('image', ['clean'], () =>
+//
+// );
 gulp.task('build', ['build:static'], () => compileNodeJS('src/app/**/*.js', './dist'));
 gulp.task('build:test', ['clean:test'], () => compileNodeJS('src/test/**/*.js', './dist-test'));
 
