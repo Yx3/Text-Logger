@@ -21,6 +21,7 @@
     "test"
   ],
   "dependencies": {
+    "electron": "^1.4.13",
     "gulp": "^3.9.1",
     "menubar": "^5.2.0",
     "node-simple-logger": "0.0.1",

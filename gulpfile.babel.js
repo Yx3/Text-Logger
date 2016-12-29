@@ -31,7 +31,10 @@ gulp.task('build:test', ['clean:test'], () => compileNodeJS('src/**/*.js', './di
 
 gulp.task('clean:test', () => rimraf.sync('./dist-test'));
 
-gulp.task('clean', () => rimraf.sync('./dist'));
+gulp.task('clean', () => {
+  rimraf.sync('./dist');
+  rimraf.sync('./TextLogger*');
+});
 
 gulp.task('run:eslint', () => gulp.src('src/**/*.js')
   .pipe(eslint())
