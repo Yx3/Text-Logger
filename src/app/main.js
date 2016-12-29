@@ -1,13 +1,16 @@
 import {app, globalShortcut, clipboard} from 'electron';
+import fs from 'fs';
 import menubar from 'menubar';
 
 const dir = process.cwd();
-const mb = menubar({
-  index: `file://${dir}/dist/app/index.html`
-});
+const logPath = `${dir}/log.txt`;
+const indexPath = `file://${dir}/dist/app/index.html`;
+const mb = menubar({index: indexPath});
 
 function saveContents() {
-  console.log(clipboard.readText());
+  const clip = `${clipboard.readText()}\n`;
+  console.log(clip);
+  fs.appendFileSync(logPath, clip);
 }
 
 mb.on('ready', () => {
