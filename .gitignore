@@ -44,3 +44,5 @@ jspm_packages
 
 TextLogger*
 dist/*
+
+log.txt
