@@ -1,20 +1,16 @@
 import {Component} from 'react';
 
-class Clip extends Component {
-  constructor(props, clip) {
+export default class Clip extends Component {
+  constructor(props) {
     super(props);
-
-    this.state.clip = clip;
+    // this.props = props;
   }
 
   render() {
     return (
       <div>
-        <div>{this.state.clip}</div>
+        <div>{this.props.word}</div>
       </div>
     );
   }
 }
-
-// Export for re-use
-export default Clip;

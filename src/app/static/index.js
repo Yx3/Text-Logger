@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Clip from '../view/clip';
+import AppComponent from '../view/app-component';
 
-ReactDOM.render(<Clip/>, document.getElementById('container'));
+window.React = React;
+
+ReactDOM.render(<AppComponent />, document.getElementById('container'));
