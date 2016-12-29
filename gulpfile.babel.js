@@ -9,28 +9,34 @@ import rimraf from 'rimraf';
 import sourcemaps from 'gulp-sourcemaps';
 import unitest from 'unitest';
 import image from 'gulp-image';
+import browserify from 'browserify';
+import babelify from 'babelify';
+import configify from 'config-browserify';
+import envify from 'envify';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
 
 // Default task. This will be run when no task is passed in arguments to gulp
 gulp.task('default', ['start']);
 
 // Convert ES6 code in all js files in src/js folder and copy to
 // build folder as bundle.js
-gulp.task('build:static', ['clean'], () =>
+gulp.task('build:static', ['clean:static'], () =>
   gulp.src('./src/app/static/*')
     .pipe(image())
     .pipe(gulp.dest('./dist/static'))
 );
-// gulp.task('image', ['clean'], () =>
-//
-// );
-gulp.task('build', ['build:static'], () => compileNodeJS('src/app/**/*.js', './dist'));
+gulp.task('build:view', ['clean:view'], () => compileViewJS(['./src/app/static/index.js'], 'index.js', './dist/static'));
+gulp.task('build:core', ['clean:core'], () => compileNodeJS('src/app/**/*.js', './dist'));
 gulp.task('build:test', ['clean:test'], () => compileNodeJS('src/test/**/*.js', './dist-test'));
+gulp.task('build', ['build:static', 'build:view', 'build:core']);
 
 // clean
-gulp.task('clean:core', () => rimraf.sync('./dist/app/core'));
-gulp.task('clean:view', () => rimraf.sync('./dist/app/view'));
+gulp.task('clean:static', () => rimraf.sync('./dist/static'));
+gulp.task('clean:core', () => rimraf.sync('./dist/core'));
+gulp.task('clean:view', () => rimraf.sync('./dist/static/index.js'));
 gulp.task('clean:test', () => rimraf.sync('./dist-test'));
-gulp.task('clean', ['clean:core', 'clean:view', 'clean:test'], () => {
+gulp.task('clean', ['clean:static', 'clean:core', 'clean:view', 'clean:test'], () => {
   rimraf.sync('./dist');
   rimraf.sync('./TextLogger*');
 });
@@ -81,6 +87,19 @@ const compileNodeJS = (src, dest) =>
       sourceRoot: (file) => file.base
     }))
     .pipe(gulp.dest(dest));
+
+const compileViewJS = (entries, destName, destDir) =>
+  browserify({
+    entries: entries
+  }).transform(babelify)
+    .transform(configify)
+    .transform(envify)
+    .bundle()
+    .pipe(source(destName))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(destDir));
 
 const lintReporter = (results) => {
   const logColor = results.errorCount ? gutil.colors.red : gutil.colors.green;
