@@ -42,7 +42,4 @@ jspm_packages
 /.idea/
 .idea/
 
-TextLogger*
-dist/*
-
 log.txt
