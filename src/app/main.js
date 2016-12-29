@@ -1,21 +1,20 @@
-//const {app, globalShortcut} = require('electron')
-var menubar = require('menubar');
+import {app, globalShortcut, clipboard} from 'electron';
+import menubar from 'menubar';
 
-var mb = menubar();
+const dir = process.cwd();
+const mb = menubar({
+  index: `file://${dir}/dist/app/index.html`
+});
 
-mb.on('ready', function ready () {
-  console.log('app is ready');
+function saveContents() {
+  console.log(clipboard.readText());
+}
 
-  // // Register a 'CommandOrControl+X' shortcut listener.
-  // const ret = globalShortcut.register('CommandOrControl+X', function () {
-  //   console.log('CommandOrControl+X is pressed')
-  // });
-  //
-  // if (!ret) {
-  //   console.log('registration failed')
-  // }
-  //
-  // // Check whether a shortcut is registered.
-  // console.log(globalShortcut.isRegistered('CommandOrControl+X'))
+mb.on('ready', () => {
+  globalShortcut.register('Control+Command+S', saveContents);
+
+  if (!globalShortcut.isRegistered('Control+Command+S')) {
+    // TODO: alert and eld process
+  }
 });
 
