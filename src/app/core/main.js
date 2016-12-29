@@ -4,7 +4,7 @@ import menubar from 'menubar';
 
 const dir = process.cwd();
 const logPath = `${dir}/log.txt`;
-const indexPath = `file://${dir}/dist/app/index.html`;
+const indexPath = `file://${dir}/dist/static/index.html`;
 const mb = menubar({index: indexPath});
 
 function saveContents() {

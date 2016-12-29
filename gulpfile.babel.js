@@ -10,28 +10,27 @@ import sourcemaps from 'gulp-sourcemaps';
 import unitest from 'unitest';
 import image from 'gulp-image';
 
-//Default task. This will be run when no task is passed in arguments to gulp
+// Default task. This will be run when no task is passed in arguments to gulp
 gulp.task('default', ['start']);
 
-gulp.task('build:static', ['clean'], () =>
-  gulp.src('./src/app/**/*.html').pipe(gulp.dest('./dist/app'))
+// Convert ES6 code in all js files in src/js folder and copy to
+// build folder as bundle.js
+gulp.task('build:static', ['image', 'clean'], () =>
+  gulp.src('./src/app/**/*.html').pipe(gulp.dest('./dist/static'))
 );
-
 gulp.task('image', ['clean'], () =>
   gulp.src('./src/static/*')
     .pipe(image())
-    .pipe(gulp.dest('./dist/app'))
+    .pipe(gulp.dest('./dist/static'))
 );
+gulp.task('build', ['build:static'], () => compileNodeJS('src/app/**/*.js', './dist'));
+gulp.task('build:test', ['clean:test'], () => compileNodeJS('src/test/**/*.js', './dist-test'));
 
-//Convert ES6 code in all js files in src/js folder and copy to
-//build folder as bundle.js
-gulp.task('build', ['build:static', 'image'], () => compileNodeJS('src/**/*.js', './dist'));
-
-gulp.task('build:test', ['clean:test'], () => compileNodeJS('src/**/*.js', './dist-test'));
-
+// clean
+gulp.task('clean:core', () => rimraf.sync('./dist/app/core'));
+gulp.task('clean:view', () => rimraf.sync('./dist/app/view'));
 gulp.task('clean:test', () => rimraf.sync('./dist-test'));
-
-gulp.task('clean', () => {
+gulp.task('clean', ['clean:core', 'clean:view', 'clean:test'], () => {
   rimraf.sync('./dist');
   rimraf.sync('./TextLogger*');
 });
@@ -82,7 +81,6 @@ const compileNodeJS = (src, dest) =>
       sourceRoot: (file) => file.base
     }))
     .pipe(gulp.dest(dest));
-
 
 const lintReporter = (results) => {
   const logColor = results.errorCount ? gutil.colors.red : gutil.colors.green;
