@@ -31,9 +31,7 @@ function translateClip(source) {
       res.on('data', data => {
         buffer.push(data);
       });
-      res.on('end', () => {
-        resolve(buffer.toString());
-      })
+      res.on('end', () => resolve(buffer.toString()));
     });
   }).then(buffer => {
     const str = refineJsonString(buffer);
