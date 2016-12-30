@@ -1,31 +1,35 @@
 import React from 'react';
-import readlines from 'gen-readlines';
 import fs from 'fs';
+import readline from 'readline';
+import Clip from './clip';
 
 export default class ClipList extends React.Component {
   constructor() {
     super();
-    this.fd = this.openLogFile();
-    this.buffer = this.openBuffer();
-    this.contents = '2';
+    this.state = {
+      logs: []
+    }
+    this.readFile = this.readFile.bind(this);
   }
 
-  async openLogFile() {
-    return await fs.openSync('log.txt', 'r');
+  componentWillMount(){
+    this.readFile();
   }
 
-  async openBuffer() {
-    return await fs.fstatSync(this.fd);
-  }
+  readFile() {
+    const rl = readline.createInterface({
+      input: fs.createReadStream('log.txt')
+    });
 
-  renderClip(contents) {
-    return <div> hii </div>;
+    rl.on('line', (line) => {
+      this.setState({logs: this.state.logs.concat(line)});
+    });
   }
 
   render() {
     return (
       <div>
-        {readlines(this.fd, this.buffer.size).forEach(console.log)}
+        {this.state.logs.map(content=><Clip contents = {content}/>)}
       </div>
     );
   }
