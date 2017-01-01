@@ -1,0 +1,8 @@
+{
+  "enableServiceHook" : true,
+  "service" : "google",
+  "googleSourceLanguage" : "auto",
+  "googleTargetLanguage" : "ko",
+  "glosbeSourceLanguage" : "eng",
+  "glosbeTargetLanguage" : "kor"
+}
