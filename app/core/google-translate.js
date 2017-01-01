@@ -1,7 +1,7 @@
 import https from 'https';
 import setting from '../setting.json';
 
-const addrTranslate = 'https://translate.googleapis.com/translate_a/single?client=gtx';
+const api = 'https://translate.googleapis.com/translate_a/single?client=gtx';
 
 function refineJsonString(src) {
   const regex = new RegExp(',,*', 'g');
@@ -9,9 +9,9 @@ function refineJsonString(src) {
   return src.replace(regex, replace);
 }
 
-export function translateClip(source) {
+export default function (source) {
   const encoded = encodeURIComponent(source);
-  const addr = `${addrTranslate}&sl=${setting.googleSourceLanguage}&tl=${setting.googleTargetLanguage}&dt=t&q=${encoded}`;
+  const addr = `${api}&sl=${setting.googleSourceLanguage}&tl=${setting.googleTargetLanguage}&dt=t&q=${encoded}`;
 
   return new Promise((resolve, reject) => {
     const buffer = [];

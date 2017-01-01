@@ -2,7 +2,8 @@ import {app, globalShortcut, clipboard} from 'electron';
 import fs from 'fs';
 import menubar from 'menubar';
 import setting from '../setting.json';
-import {translateClip} from './google-translate';
+import googleTranslate from './google-translate';
+import glosbeTranslate from './glosbe-translate';
 
 const dir = process.cwd();
 const logPath = `${dir}/log.txt`;
@@ -19,7 +20,16 @@ function saveContents() {
   console.log(clip);
 
   if (setting.enableServiceHook) {
-    translateClip(clip)
+    let service;
+    switch (setting.service) {
+      case SERVICE.GOOGLE:
+        service = googleTranslate;
+        break;
+      case SERVICE.GLOSBE:
+        service = glosbeTranslate;
+        break;
+    }
+    service(clip)
       .then(translated => `${clip} => ${translated}\n`)
       .then(contents => {
         fs.appendFileSync(logPath, contents);
