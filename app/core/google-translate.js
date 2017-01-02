@@ -29,6 +29,5 @@ export default function (source) {
     const str = refineJsonString(buffer);
     const json = JSON.parse(str);
     return json[0][0][0];
-  }).catch(console.log);
+  }).catch(console.log); // eslint-disable-line no-console
 }
-

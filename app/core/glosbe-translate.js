@@ -21,5 +21,5 @@ export default function (source) {
     });
   // }).then(buffer => {
   //   const json = JSON.parse(buffer);
-  }).catch(console.log);
+  }).catch(console.log); // eslint-disable-line no-console
 }

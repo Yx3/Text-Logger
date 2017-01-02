@@ -1,4 +1,4 @@
-import {app, globalShortcut, clipboard} from 'electron';
+import {app, globalShortcut, clipboard, ipcMain} from 'electron';
 import fs from 'fs';
 import menubar from 'menubar';
 import setting from '../setting.json';
@@ -17,7 +17,7 @@ const mb = menubar({index: indexPath});
 
 function saveContents() {
   const clip = clipboard.readText();
-  console.log(clip);
+  console.log(clip); // eslint-disable-line no-console
 
   if (setting.enableServiceHook) {
     let service;
@@ -41,6 +41,9 @@ mb.on('ready', () => {
   if (!globalShortcut.isRegistered('Control+Command+S')) {
     // TODO: alert and end process
   }
+  ipcMain.on('delete-log', (event, arg) => {
+    fs.writeFile(logPath, arg);
+  });
 });
 
 mb.on('show', () => {
