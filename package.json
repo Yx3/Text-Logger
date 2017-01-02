@@ -7,7 +7,7 @@
   "scripts": {
     "start": "electron .",
     "lint": "./node_modules/.bin/eslint app/**/*.js",
-    "test": "npm lint"
+    "test": "npm run lint"
   },
   "pre-commit": [
     "test"
