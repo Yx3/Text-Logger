@@ -13,8 +13,6 @@
 
   "parser": "babel-eslint",
 
-  "parser": "babel-eslint",
-
   "ecmaFeatures": {
     "arrowFunctions": true,
     "binaryLiterals": true,
