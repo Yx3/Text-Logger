@@ -8,11 +8,11 @@ export default class ClipList extends React.Component {
     super();
     this.state = {
       logs: []
-    }
+    };
     this.readFile = this.readFile.bind(this);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.readFile();
   }
 

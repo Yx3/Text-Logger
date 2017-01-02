@@ -22,12 +22,14 @@ function saveContents() {
   if (setting.enableServiceHook) {
     let service;
     switch (setting.service) {
-      case SERVICE.GOOGLE:
-        service = googleTranslate;
-        break;
-      case SERVICE.GLOSBE:
-        service = glosbeTranslate;
-        break;
+    case SERVICE.GOOGLE:
+      service = googleTranslate;
+      break;
+    case SERVICE.GLOSBE:
+      service = glosbeTranslate;
+      break;
+    default:
+      // TODO: ERROR handle
     }
     service(clip)
       .then(translated => `${clip} => ${translated}\n`)

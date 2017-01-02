@@ -11,7 +11,9 @@ function refineJsonString(src) {
 
 export default function (source) {
   const encoded = encodeURIComponent(source);
-  const addr = `${api}&sl=${setting.googleSourceLanguage}&tl=${setting.googleTargetLanguage}&dt=t&q=${encoded}`;
+  const sourceLang = setting.googleSourceLanguage;
+  const targetLang = setting.googleTargetLanguage;
+  const addr = `${api}&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encoded}`;
 
   return new Promise((resolve, reject) => {
     const buffer = [];

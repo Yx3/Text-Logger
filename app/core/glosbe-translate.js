@@ -5,7 +5,10 @@ const api = 'https://glosbe.com/gapi/translate?format=json&pretty=true';
 
 export default function (source) {
   const encoded = encodeURIComponent(source);
-  const addr = `${api}&from=${setting.glosbeSourceLanguage}&dest=${setting.glosbeTargetLanguage}&phrase=${encoded}`;
+  const sourceLang = setting.glosbeSourceLanguage;
+  const targetLang = setting.glosbeTargetLanguage;
+  const addr = `${api}&from=${sourceLang}&dest=${targetLang}&phrase=${encoded}`;
+
   return new Promise((resolve, reject) => {
     const buffer = [];
     https.get(addr, res => {
@@ -16,7 +19,7 @@ export default function (source) {
       });
       res.on('end', () => resolve(buffer.toString()));
     });
-  }).then(buffer => {
-    const json = JSON.parse(buffer);
+  // }).then(buffer => {
+  //   const json = JSON.parse(buffer);
   }).catch(console.log);
 }
