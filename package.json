@@ -6,7 +6,8 @@
   "repository": "git@github.com:ovekyc/textlogger.git",
   "scripts": {
     "start": "electron .",
-    "lint": "./node_modules/.bin/eslint app/**/*.js"
+    "lint": "./node_modules/.bin/eslint app/**/*.js",
+    "test": "npm lint"
   },
   "dependencies": {
     "babel-register": "^6.18.0",
