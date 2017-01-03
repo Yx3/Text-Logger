@@ -13,20 +13,20 @@
     "test"
   ],
   "dependencies": {
+    "autobind-decorator": "^1.3.4",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
+    "electron": "^1.4.3",
     "menubar": "^5.2.0",
     "react": "^15.4.1",
     "react-addons-update": "^15.4.1",
     "react-dom": "^15.4.1"
   },
   "devDependencies": {
-    "autobind-decorator": "^1.3.4",
     "babel-eslint": "^7.1.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "electron": "^1.4.3",
     "eslint": "^3.12.2",
     "eslint-plugin-react": "^6.8.0",
     "pre-commit": "^1.2.2"
