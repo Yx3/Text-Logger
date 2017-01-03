@@ -8,6 +8,7 @@ import glosbeTranslate from './glosbe-translate';
 const dir = process.cwd();
 const logPath = `${dir}/log.txt`;
 const indexPath = `file://${dir}/app/view/popup.html`;
+const settingPath = `${dir}/app/setting.json`;
 const SERVICE = {
   GOOGLE: 'google',
   GLOSBE: 'glosbe'
@@ -43,6 +44,10 @@ mb.on('ready', () => {
   }
   ipcMain.on('delete-log', (event, arg) => {
     fs.writeFile(logPath, arg);
+  });
+  ipcMain.on('set-service-hook', (event, arg) => {
+    setting.enableServiceHook = arg;
+    fs.writeFile(settingPath, JSON.stringify(setting));
   });
 });
 
