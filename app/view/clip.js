@@ -7,10 +7,10 @@ export default class Clip extends React.Component {
 
   render() {
     return (
-      <div style = {{position: 'relative', height: 30}}>
-          <div style = {{position: 'absolute', left: 10}}>{this.props.contents}</div>
+      <div style = {{display: 'flex', flexGrow: 1, flexDirection: 'row'}}>
+          <div style = {{flex: 3}}>{this.props.contents}</div>
           { (this.props.changeClicked) ?
-            <button style = {{position: 'absolute', right: 0}}
+            <button style = {{flex: 1}}
                     onClick={()=>this.props.deleteLog(this.props.index)}> delete </button>
             : null
           }

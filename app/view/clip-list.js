@@ -27,8 +27,12 @@ export default class ClipList extends React.Component {
         }
       )
     });
-    const updatedData = this.state.logs.reduce((data, log, i) =>
-      i === index ? data : `${data}${log}\n`);
+    let logs = this.state.logs;
+    if (index === 0) {
+      logs.shift();
+    }
+    const updatedData = logs.length !== 0 ? logs.reduce((data, log, i) =>
+      i === index ? data : `${data}\n${log}`) : '';
     ipcRenderer.send('delete-log', updatedData);
   }
 
@@ -75,16 +79,21 @@ export default class ClipList extends React.Component {
 
   render() {
     return (
-      <div style = {{position: 'relative'}}>
-        {this.renderOption()}
+      <div style = {{display: 'flex', flexDirection: 'column', height: 280}}>
+        <div style = {{flex: 2}}>
+          {this.renderOption()}
+        </div>
+        <div style = {{flex: 3, borderStyle: 'solid', overflowY: 'scroll'}}>
         {this.state.logs.map((content, i)=><Clip contents = {content}
                                                  deleteLog = {this.deleteLog}
                                                  index = {i}
                                                  changeClicked = {this.state.changeClicked}/>)}
-       <button
-         onClick={()=>this.setState({changeClicked: !this.state.changeClicked})}>
-         Edit
-       </button>
+        </div>
+        <button
+          style = {{flex: 1}}
+          onClick={()=>this.setState({changeClicked: !this.state.changeClicked})}>
+          Edit
+        </button>
       </div>
     );
   }
