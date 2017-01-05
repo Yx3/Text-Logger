@@ -1,8 +1,8 @@
 import {app, globalShortcut, ipcMain} from 'electron';
 import fs from 'fs';
 import menubar from 'menubar';
-import {store, saveContents} from './database';
 import setting from '../setting.json';
+import {store, read, remove, saveContents} from './database';
 
 const dir = process.cwd();
 const indexPath = `file://${dir}/app/view/popup.html`;
@@ -23,6 +23,20 @@ function notifyErr(err) {
   console.log(err);
 }
 
+function registorIPCListener() {
+  ipcMain.on('delete-log', (event, arg) => {
+    fs.writeFile(logPath, arg);
+  });
+
+  ipcMain.on('load-clips', (event) => {
+    console.log(read());
+  });
+
+  ipcMain.on('delete-contents', (event, key) => {
+    remove(key);
+  });
+}
+
 mb.on('ready', () => {
   globalShortcut.register('Control+Command+S', () => {
     // TODO: remove, for backward compatibility
@@ -38,14 +52,6 @@ mb.on('ready', () => {
   if (!globalShortcut.isRegistered('Control+Command+S')) {
     // TODO: alert and end process
   }
-
-  ipcMain.on('delete-log', (event, arg) => {
-    fs.writeFile(logPath, arg);
-  });
-  ipcMain.on('set-service-hook', (event, arg) => {
-    setting.enableServiceHook = arg;
-    fs.writeFile(settingPath, JSON.stringify(setting, null, '  '));
-  });
 });
 
 mb.on('show', () => {

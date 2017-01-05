@@ -1,19 +1,28 @@
 import React from 'react';
+import {ipcRenderer} from 'electron';
+import autobind from 'autobind-decorator';
 
+@autobind
 export default class Clip extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  deleteContents() {
+    this.props.deleteLog(this.props.index);
+    this.state.clips = ipcRenderer.send('delete-contents', this.props.source);
+    ipcRenderer.on('delete-result', (event, arg) => {
+      console.log(arg) // prints "pong"
+    })
+  }
+
   render() {
     return (
-      <div style = {{display: 'flex', flexGrow: 1, flexDirection: 'row'}}>
-          <div style = {{flex: 3}}>{this.props.contents}</div>
-          { (this.props.changeClicked) ?
-            <button style = {{flex: 1}}
-                    onClick={()=>this.props.deleteLog(this.props.index)}> delete </button>
-            : null
-          }
+      <div>
+        <div>{this.props.source}</div>
+        <div>{this.props.google}</div>
+        <div>{this.props.glosbe}</div>
+        <button onClick={this.deleteContents}> delete </button>
       </div>
     );
   }

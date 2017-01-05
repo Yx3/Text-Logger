@@ -36,8 +36,34 @@ export async function store(cb) {
   const tranGlosbe = await glosbeTranslate(clip);
 
   const contents = new Contents(clip, tranGoogle, tranGlosbe);
-  db.put(contents.key, contents, err => {
+  db.put(contents.source, contents, err => {
     if (err) throw err;
     cb(contents);
+  });
+}
+
+export function remove(key) {
+  // TODO : Handle I/O Error
+  db.del(key);
+}
+
+export async function read() {
+  const container = [];
+  return new Promise((resolve, reject) => {
+    db.createReadStream({
+      keys: false,
+      values: true,
+      start: '',
+      end: `\xFF`
+    }).on('data', data => {
+      container.push(data.value);
+    })
+    .on('error', err => {
+      // TODO: Handle error
+      reject(err);
+    })
+    .on('end', () => {
+      resolve(container);
+    });
   });
 }

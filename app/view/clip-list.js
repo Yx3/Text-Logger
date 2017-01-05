@@ -7,19 +7,19 @@ import {ipcRenderer} from 'electron';
 import autobind from 'autobind-decorator';
 import setting from '../setting.json';
 @autobind
-export default class ClipList extends React.Component {
+export default class ClipContainer extends React.Component {
   constructor() {
     super();
     this.state = {
-      logs: [],
+      clips: [],
       changeClicked: false,
       // TODO: it will be moved to app component
       enableServiceHook: setting.enableServiceHook
     };
-    this.readFile();
+    this.loadClips();
   }
 
-  deleteLog(index) {
+  deleteClip(index) {
     this.setState({
       logs: update(
         this.state.logs,
@@ -37,14 +37,8 @@ export default class ClipList extends React.Component {
     ipcRenderer.send('delete-log', updatedData);
   }
 
-  readFile() {
-    const rl = readline.createInterface({
-      input: fs.createReadStream('log.txt')
-    });
-
-    rl.on('line', (line) => {
-      this.setState({logs: this.state.logs.concat(line)});
-    });
+  loadClips() {
+    this.state.clips = ipcRenderer.sendSync('load-clips');
   }
 
   handleOptionChange(event) {
@@ -85,10 +79,15 @@ export default class ClipList extends React.Component {
           {this.renderOption()}
         </div>
         <div style = {{flex: 3, borderStyle: 'solid', overflowY: 'scroll'}}>
-        {this.state.logs.map((content, i)=><Clip contents = {content}
-                                                 deleteLog = {this.deleteLog}
-                                                 index = {i}
-                                                 changeClicked = {this.state.changeClicked}/>)}
+        {this.state.logs.map((content, i) =>
+          <Clip
+            source={contents.source}
+            google={contents.google}
+            glosbe={contents.glosbe}
+            deleteLog={this.deleteClip}
+            index={i}
+          />
+        )}
         </div>
         <button
           style = {{flex: 1}}
