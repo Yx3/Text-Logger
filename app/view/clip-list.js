@@ -13,6 +13,7 @@ export default class ClipList extends React.Component {
     this.state = {
       logs: [],
       changeClicked: false,
+      // TODO: it will be moved to app component
       enableServiceHook: setting.enableServiceHook
     };
     this.readFile();
