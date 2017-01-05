@@ -1,11 +1,10 @@
 import React from 'react';
-import fs from 'fs';
 import update from 'react-addons-update';
-import readline from 'readline';
 import Clip from './clip';
 import {ipcRenderer} from 'electron';
 import autobind from 'autobind-decorator';
 import setting from '../setting.json';
+
 @autobind
 export default class ClipContainer extends React.Component {
   constructor() {
@@ -21,24 +20,13 @@ export default class ClipContainer extends React.Component {
 
   deleteClip(index) {
     this.setState({
-      logs: update(
-        this.state.logs,
-        {
-          $splice: [[index, 1]]
-        }
-      )
+      clips: update(this.state.clips, {$splice: [[index, 1]]})
     });
-    let logs = this.state.logs;
-    if (index === 0) {
-      logs.shift();
-    }
-    const updatedData = logs.length === 0 ? '' : logs.reduce((data, log, i) =>
-      i === index ? data : `${data}\n${log}`);
-    ipcRenderer.send('delete-log', updatedData);
   }
 
   loadClips() {
     this.state.clips = ipcRenderer.sendSync('load-clips');
+    console.log(this.state.clips)
   }
 
   handleOptionChange(event) {

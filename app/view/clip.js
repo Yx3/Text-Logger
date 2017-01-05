@@ -10,9 +10,9 @@ export default class Clip extends React.Component {
 
   deleteContents() {
     this.props.deleteLog(this.props.index);
-    this.state.clips = ipcRenderer.send('delete-contents', this.props.source);
+    ipcRenderer.send('delete-contents', this.props.source);
     ipcRenderer.on('delete-result', (event, arg) => {
-      console.log(arg) // prints "pong"
+      //TODO : alert message
     })
   }
 

@@ -23,32 +23,35 @@ function notifyErr(err) {
   console.log(err);
 }
 
-function registorIPCListener() {
+function registerIPCListener() {
   ipcMain.on('delete-log', (event, arg) => {
     fs.writeFile(logPath, arg);
   });
 
-  ipcMain.on('load-clips', (event) => {
-    console.log(read());
+  ipcMain.on('load-clips', async (event) => {
+    event.returnValue = await read();
   });
 
   ipcMain.on('delete-contents', (event, key) => {
+    if (!key) return;
     remove(key);
   });
 }
 
+function hotKeysPressed() {
+  // TODO: remove, for backward compatibility
+  saveContents();
+
+  try {
+    store(notifyDone);
+  } catch (err) {
+    notifyErr(err);
+  }
+}
+
 mb.on('ready', () => {
-  globalShortcut.register('Control+Command+S', () => {
-    // TODO: remove, for backward compatibility
-    saveContents();
-
-    try {
-      store(notifyDone);
-    } catch (err) {
-      notifyErr(err);
-    }
-  });
-
+  registerIPCListener();
+  globalShortcut.register('Control+Command+S', hotKeysPressed);
   if (!globalShortcut.isRegistered('Control+Command+S')) {
     // TODO: alert and end process
   }

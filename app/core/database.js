@@ -47,23 +47,17 @@ export function remove(key) {
   db.del(key);
 }
 
-export async function read() {
-  const container = [];
+export function read() {
   return new Promise((resolve, reject) => {
+    const container = [];
     db.createReadStream({
       keys: false,
       values: true,
       start: '',
       end: `\xFF`
-    }).on('data', data => {
-      container.push(data.value);
     })
-    .on('error', err => {
-      // TODO: Handle error
-      reject(err);
-    })
-    .on('end', () => {
-      resolve(container);
-    });
-  });
+    .on('data', data => container.push(data))
+    .on('error', err => reject(err))
+    .on('end', () => resolve(container));
+  })
 }
