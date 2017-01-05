@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": "git@github.com:ovekyc/textlogger.git",
   "scripts": {
-    "start": "electron .",
+    "start": "./node_modules/.bin/electron .",
     "lint": "./node_modules/.bin/eslint app/**/*.js",
     "test": "npm run lint"
   },
@@ -20,6 +20,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
     "electron": "^1.4.3",
+    "level": "^1.5.0",
     "menubar": "^5.2.0",
     "react": "^15.4.1",
     "react-addons-update": "^15.4.1",
@@ -27,6 +28,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
+    "babel-polyfill": "^6.20.0",
+    "electron-rebuild": "^1.5.5",
     "eslint": "^3.12.2",
     "eslint-plugin-react": "^6.8.0",
     "pre-commit": "^1.2.2"

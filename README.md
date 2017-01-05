@@ -15,3 +15,9 @@ Support x64 processor only
 
     npm run lint
     npm run test
+
+If you face error message like below
+Error: Module version mismatch. Expected 50, got 48
+try this
+
+    npm rebuild --runtime=electron --target=1.4.3 --disturl=https://atom.io/download/atom-shell --build-from-source
