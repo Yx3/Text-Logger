@@ -11,7 +11,6 @@ import {SERVICE} from './constants';
 import {logPath} from './main';
 export function saveContents() {
   const clip = clipboard.readText();
-  console.log(clip); // eslint-disable-line no-console
   if (setting.enableServiceHook) {
     let service;
     if (setting.service === SERVICE.GOOGLE) service = googleTranslate;
@@ -32,12 +31,9 @@ export function saveContents() {
 const db = levelup('log.db', {valueEncoding: 'json'});
 export async function store(cb) {
   const clip = clipboard.readText();
-  console.log(clip); // eslint-disable-line no-console
 
   const tranGoogle = await googleTranslate(clip);
   const tranGlosbe = await glosbeTranslate(clip);
-  console.log(tranGoogle);
-  console.log(tranGlosbe);
 
   const contents = new Contents(clip, tranGoogle, tranGlosbe);
   db.put(contents.key, contents, err => {

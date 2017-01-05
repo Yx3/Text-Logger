@@ -12,10 +12,12 @@ const mb = menubar({index: indexPath});
 export const logPath = `${dir}/log.txt`;
 
 function notifyDone(contents) {
+  // TODO: impl
   console.log(contents);
 }
 
 function notifyErr(err) {
+  // TODO: impl
   console.log(err);
 }
 
