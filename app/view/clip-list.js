@@ -31,8 +31,8 @@ export default class ClipList extends React.Component {
     if (index === 0) {
       logs.shift();
     }
-    const updatedData = logs.length !== 0 ? logs.reduce((data, log, i) =>
-      i === index ? data : `${data}\n${log}`) : '';
+    const updatedData = logs.length === 0 ? '' : logs.reduce((data, log, i) =>
+      i === index ? data : `${data}\n${log}`);
     ipcRenderer.send('delete-log', updatedData);
   }
 

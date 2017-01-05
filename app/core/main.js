@@ -47,7 +47,7 @@ mb.on('ready', () => {
   });
   ipcMain.on('set-service-hook', (event, arg) => {
     setting.enableServiceHook = arg;
-    fs.writeFile(settingPath, JSON.stringify(setting));
+    fs.writeFile(settingPath, JSON.stringify(setting, null, '  '));
   });
 });
 
