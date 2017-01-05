@@ -5,13 +5,16 @@ import readline from 'readline';
 import Clip from './clip';
 import {ipcRenderer} from 'electron';
 import autobind from 'autobind-decorator';
-
+import setting from '../setting.json';
 @autobind
 export default class ClipList extends React.Component {
   constructor() {
     super();
     this.state = {
-      logs: []
+      logs: [],
+      changeClicked: false,
+      // TODO: it will be moved to app component
+      enableServiceHook: setting.enableServiceHook
     };
     this.readFile();
   }
@@ -25,8 +28,11 @@ export default class ClipList extends React.Component {
         }
       )
     });
-
-    const updatedData = this.state.logs.reduce((data, log, i) =>
+    let logs = this.state.logs;
+    if (index === 0) {
+      logs.shift();
+    }
+    const updatedData = logs.length === 0 ? '' : logs.reduce((data, log, i) =>
       i === index ? data : `${data}\n${log}`);
     ipcRenderer.send('delete-log', updatedData);
   }
@@ -41,12 +47,54 @@ export default class ClipList extends React.Component {
     });
   }
 
-  render() {
+  handleOptionChange(event) {
+    this.setState({enableServiceHook: event.target.value === 'true'});
+    ipcRenderer.send('set-service-hook', event.target.value === 'true');
+  }
+
+  renderOption() {
     return (
       <div>
+        <h3>Service Hook</h3>
+        <form>
+          <div>
+            <label>
+              <input type="radio" value='true'
+                            checked={this.state.enableServiceHook === true}
+                            onChange={this.handleOptionChange}/>
+              Yes
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="radio" value='false'
+                            checked={this.state.enableServiceHook === false}
+                            onChange={this.handleOptionChange}/>
+              No
+            </label>
+          </div>
+        </form>
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div style = {{display: 'flex', flexDirection: 'column', height: 280}}>
+        <div style = {{flex: 2}}>
+          {this.renderOption()}
+        </div>
+        <div style = {{flex: 3, borderStyle: 'solid', overflowY: 'scroll'}}>
         {this.state.logs.map((content, i)=><Clip contents = {content}
-                                                deleteLog = {this.deleteLog}
-                                                index = {i}/>)}
+                                                 deleteLog = {this.deleteLog}
+                                                 index = {i}
+                                                 changeClicked = {this.state.changeClicked}/>)}
+        </div>
+        <button
+          style = {{flex: 1}}
+          onClick={()=>this.setState({changeClicked: !this.state.changeClicked})}>
+          Edit
+        </button>
       </div>
     );
   }
