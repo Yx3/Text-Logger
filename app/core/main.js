@@ -7,6 +7,7 @@ import setting from '../setting.json';
 const dir = process.cwd();
 const indexPath = `file://${dir}/app/view/popup.html`;
 const settingPath = `${dir}/app/setting.json`;
+
 const mb = menubar({index: indexPath});
 
 // TODO: remove, for backward compatibility
