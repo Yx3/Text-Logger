@@ -54,10 +54,10 @@ export function read() {
       keys: false,
       values: true,
       start: '',
-      end: `\xFF`
+      end: '\xFF'
     })
     .on('data', data => container.push(data))
     .on('error', err => reject(err))
     .on('end', () => resolve(container));
-  })
+  });
 }

@@ -26,7 +26,6 @@ export default class ClipContainer extends React.Component {
 
   loadClips() {
     this.state.clips = ipcRenderer.sendSync('load-clips');
-    console.log(this.state.clips)
   }
 
   handleOptionChange(event) {
