@@ -2,6 +2,7 @@ import {app, globalShortcut, ipcMain} from 'electron';
 import fs from 'fs';
 import menubar from 'menubar';
 import {store, saveContents} from './database';
+import setting from '../setting.json';
 
 const dir = process.cwd();
 const indexPath = `file://${dir}/app/view/popup.html`;
