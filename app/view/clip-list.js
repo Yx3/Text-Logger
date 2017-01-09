@@ -8,8 +8,7 @@ export default class ClipContainer extends React.Component {
   constructor() {
     super();
     this.state = {
-      clips: [],
-      changeClicked: false
+      clips: []
     };
   }
 
