@@ -2,16 +2,13 @@ import {app, globalShortcut, ipcMain} from 'electron';
 import fs from 'fs';
 import menubar from 'menubar';
 import setting from '../setting.json';
-import {store, read, remove, saveContents} from './database';
+import {store, read, remove} from './database';
 
 const dir = process.cwd();
 const indexPath = `file://${dir}/app/view/popup.html`;
 const settingPath = `${dir}/app/setting.json`;
 
 const mb = menubar({index: indexPath});
-
-// TODO: remove, for backward compatibility
-export const logPath = `${dir}/log.txt`;
 
 function notifyDone(contents) {
   // TODO: impl
@@ -24,9 +21,6 @@ function notifyErr(err) {
 }
 
 function registerIPCListener() {
-  ipcMain.on('delete-log', (event, arg) => {
-    fs.writeFile(logPath, arg);
-  });
   ipcMain.on('load-clips', async (event) => {
     event.returnValue = await read();
   });
@@ -41,9 +35,6 @@ function registerIPCListener() {
 }
 
 function hotKeysPressed() {
-  // TODO: remove, for backward compatibility
-  saveContents();
-
   try {
     store(notifyDone);
   } catch (err) {
