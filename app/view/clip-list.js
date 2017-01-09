@@ -30,7 +30,7 @@ export default class ClipContainer extends React.Component {
 
   handleOptionChange(event) {
     this.setState({enableServiceHook: event.target.value === 'true'});
-    ipcRenderer.send('set-service-hook', event.target.value === 'true');
+    ipcRenderer.send('enable-translate', event.target.value === 'true');
   }
 
   renderOption() {
@@ -66,11 +66,11 @@ export default class ClipContainer extends React.Component {
           {this.renderOption()}
         </div>
         <div style = {{flex: 3, borderStyle: 'solid', overflowY: 'scroll'}}>
-        {this.state.logs.map((content, i) =>
+        {this.state.clips.map((content, i) =>
           <Clip
-            source={contents.source}
-            google={contents.google}
-            glosbe={contents.glosbe}
+            source={content.source}
+            google={content.google}
+            glosbe={content.glosbe}
             deleteLog={this.deleteClip}
             index={i}
           />

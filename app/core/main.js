@@ -27,14 +27,16 @@ function registerIPCListener() {
   ipcMain.on('delete-log', (event, arg) => {
     fs.writeFile(logPath, arg);
   });
-
   ipcMain.on('load-clips', async (event) => {
     event.returnValue = await read();
   });
-
   ipcMain.on('delete-contents', (event, key) => {
     if (!key) return;
     remove(key);
+  });
+  ipcMain.on('enable-translate', (event, arg) => {
+    setting.enableServiceHook = arg;
+    fs.writeFile(settingPath, JSON.stringify(setting, null, '  '));
   });
 }
 
