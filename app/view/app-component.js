@@ -1,6 +1,9 @@
 import React from 'react';
 import ClipList from './clip-list';
+import Header from './header';
+import autobind from 'autobind-decorator';
 
+@autobind
 export default class AppComponent extends React.Component {
   constructor() {
     super();
@@ -9,7 +12,8 @@ export default class AppComponent extends React.Component {
   render() {
     return (
       <div>
-        <ClipList />
+        <Header/>
+        <ClipList/>
       </div>
     );
   }
