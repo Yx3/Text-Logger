@@ -18,7 +18,11 @@ export default class Clip extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{
+        display: 'flex',
+        flexGrow: 1,
+        flexDirection: 'row'
+      }}>
         <div>{this.props.source}</div>
         <div>{this.props.google}</div>
         <div>{this.props.glosbe}</div>
