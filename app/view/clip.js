@@ -18,11 +18,23 @@ export default class Clip extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>{this.props.source}</div>
-        <div>{this.props.google}</div>
-        <div>{this.props.glosbe}</div>
-        <button onClick={this.deleteContents}>delete</button>
+      <div style={{
+        display: 'flex',
+        borderBottomStyle: 'solid',
+        borderBottomWidth: 1,
+        borderColor: '#efeff2'
+      }}>
+        <div style={{flexGrow: 10}}/>
+        <div style={{flexGrow: 352}}>
+          <div style={{height: 12}}/>
+          <div style={{
+            fontFamily: 'SanFranciscoText-Regular',
+            fontSize: 12}}>
+            {this.props.source}
+          </div>
+          <div style={{height: 12}}/>
+        </div>
+        <div style={{flexGrow: 10}}/>
       </div>
     );
   }

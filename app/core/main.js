@@ -7,8 +7,7 @@ import {store, read, remove} from './database';
 const dir = process.cwd();
 const indexPath = `file://${dir}/app/view/popup.html`;
 const settingPath = `${dir}/app/setting.json`;
-
-const mb = menubar({index: indexPath});
+const mb = menubar({index: indexPath, height: 450});
 
 function notifyDone(contents) {
   // TODO: impl
