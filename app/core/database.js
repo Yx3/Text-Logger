@@ -1,7 +1,6 @@
 import {clipboard} from 'electron';
 import levelup from 'level';
 import googleTranslate from './google-translate';
-import glosbeTranslate from './glosbe-translate';
 import Contents from './content';
 
 const db = levelup('log.db', {valueEncoding: 'json'});
@@ -9,7 +8,9 @@ export async function store(cb) {
   const clip = clipboard.readText();
 
   const tranGoogle = await googleTranslate(clip);
-  const tranGlosbe = await glosbeTranslate(clip);
+  // TODO : remove it, glosbe API is not stable at all.
+  // const tranGlosbe = await glosbeTranslate(clip);
+  const tranGlosbe = 'N/A';
 
   const contents = new Contents(clip, tranGoogle, tranGlosbe);
   db.put(contents.source, contents, err => {
