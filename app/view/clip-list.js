@@ -91,7 +91,7 @@ export default class ClipContainer extends React.Component {
         </div>
         <button
           style={{flex: 1}}
-          onClick={()=>this.setState({changeClicked: !this.state.changeClicked})}>
+          onClick={() => this.setState({changeClicked: !this.state.changeClicked})}>
           Edit
         </button>
       </div>
