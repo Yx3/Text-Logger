@@ -1,47 +1,43 @@
-import {app, globalShortcut, clipboard, ipcMain} from 'electron';
+import {app, globalShortcut, ipcMain} from 'electron';
 import fs from 'fs';
 import menubar from 'menubar';
+import {store, saveContents} from './database';
 import setting from '../setting.json';
-import googleTranslate from './google-translate';
-import glosbeTranslate from './glosbe-translate';
 
 const dir = process.cwd();
-const logPath = `${dir}/log.txt`;
 const indexPath = `file://${dir}/app/view/popup.html`;
 const settingPath = `${dir}/app/setting.json`;
-const SERVICE = {
-  GOOGLE: 'google',
-  GLOSBE: 'glosbe'
-};
-
 const mb = menubar({index: indexPath});
 
-function saveContents() {
-  const clip = clipboard.readText();
-  console.log(clip); // eslint-disable-line no-console
+// TODO: remove, for backward compatibility
+export const logPath = `${dir}/log.txt`;
 
-  if (setting.enableServiceHook) {
-    let service;
-    if (setting.service === SERVICE.GOOGLE) service = googleTranslate;
-    else if (setting.service === SERVICE.GLOSBE) service = glosbeTranslate;
-    else {
-      // TODO: ERROR handle
-    }
-    service(clip)
-      .then(translated => `${clip} => ${translated}\n`)
-      .then(contents => {
-        fs.appendFileSync(logPath, contents);
-      });
-    return;
-  }
-  fs.appendFileSync(logPath, clip);
+function notifyDone(contents) {
+  // TODO: impl
+  console.log(contents);
+}
+
+function notifyErr(err) {
+  // TODO: impl
+  console.log(err);
 }
 
 mb.on('ready', () => {
-  globalShortcut.register('Control+Command+S', saveContents);
+  globalShortcut.register('Control+Command+S', () => {
+    // TODO: remove, for backward compatibility
+    saveContents();
+
+    try {
+      store(notifyDone);
+    } catch (err) {
+      notifyErr(err);
+    }
+  });
+
   if (!globalShortcut.isRegistered('Control+Command+S')) {
     // TODO: alert and end process
   }
+
   ipcMain.on('delete-log', (event, arg) => {
     fs.writeFile(logPath, arg);
   });

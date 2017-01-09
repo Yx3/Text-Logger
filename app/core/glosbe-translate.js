@@ -19,7 +19,33 @@ export default function (source) {
       });
       res.on('end', () => resolve(buffer.toString()));
     });
-  // }).then(buffer => {
-  //   const json = JSON.parse(buffer);
-  }).catch(console.log); // eslint-disable-line no-console
+  }).then(buffer => {
+    const json = JSON.parse(buffer);
+    if (json.result !== 'ok') throw new Error('Request fail');
+    if (json.tuc.length === 0) return 'N/A';
+
+    return json.tuc[0].phrase.text;
+  });
 }
+
+/**
+ * response format
+ * {
+ *   "result" : "ok",
+ *   "tuc" : [ {
+ *     "phrase" : {
+ *       "text" : "돌아오다",
+ *       "language" : "ko"
+ *     },
+ *     "meanings" : [ {
+ *       "language" : "en",
+ *       "text" : "To go there where one was before."
+ *     }, {
+ *       "language" : "en",
+ *       "text" : "to come or go back"
+ *     } ],
+ *     "meaningId" : 8308189710182875766,
+ *     "authors" : [ 13 ]
+ *   }, {
+ *       .....
+ */

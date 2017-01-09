@@ -45,3 +45,5 @@ jspm_packages
 log.txt
 
 text-logger-*
+
+*.db
