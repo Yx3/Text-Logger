@@ -15,6 +15,9 @@ export default class ClipContainer extends React.Component {
       // TODO: it will be moved to app component
       enableServiceHook: setting.enableServiceHook
     };
+  }
+
+  componentWillMount() {
     this.loadClips();
   }
 
@@ -25,7 +28,7 @@ export default class ClipContainer extends React.Component {
   }
 
   loadClips() {
-    this.state.clips = ipcRenderer.sendSync('load-clips');
+    this.setState({clips: ipcRenderer.sendSync('load-clips')});
   }
 
   handleOptionChange(event) {

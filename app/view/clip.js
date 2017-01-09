@@ -22,7 +22,7 @@ export default class Clip extends React.Component {
         <div>{this.props.source}</div>
         <div>{this.props.google}</div>
         <div>{this.props.glosbe}</div>
-        <button onClick={this.deleteContents}> delete </button>
+        <button onClick={this.deleteContents}>delete</button>
       </div>
     );
   }
