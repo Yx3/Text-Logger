@@ -44,7 +44,7 @@ export default class ClipContainer extends React.Component {
           <div>
             <label>
               <input
-                type="radio"
+                type='radio'
                 value='true'
                 checked={this.state.enableServiceHook === true}
                 onChange={this.handleOptionChange}/>
@@ -54,7 +54,7 @@ export default class ClipContainer extends React.Component {
           <div>
             <label>
               <input
-                type="radio"
+                type='radio'
                 value='false'
                 checked={this.state.enableServiceHook === false}
                 onChange={this.handleOptionChange}/>
