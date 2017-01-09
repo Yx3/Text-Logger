@@ -1,7 +1,8 @@
 export default class {
   constructor(source, google, glosbe) {
-    this.key = source;
+    this.source = source;
     this.google = google;
     this.glosbe = glosbe;
+    this.date = new Date().toISOString();
   }
 }

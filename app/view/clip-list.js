@@ -1,55 +1,39 @@
 import React from 'react';
-import fs from 'fs';
 import update from 'react-addons-update';
-import readline from 'readline';
 import Clip from './clip';
 import {ipcRenderer} from 'electron';
 import autobind from 'autobind-decorator';
 import setting from '../setting.json';
+
 @autobind
-export default class ClipList extends React.Component {
+export default class ClipContainer extends React.Component {
   constructor() {
     super();
     this.state = {
-      logs: [],
+      clips: [],
       changeClicked: false,
       // TODO: it will be moved to app component
       enableServiceHook: setting.enableServiceHook
     };
-    this.readFile();
   }
 
-  deleteLog(index) {
+  componentWillMount() {
+    this.loadClips();
+  }
+
+  deleteClip(index) {
     this.setState({
-      logs: update(
-        this.state.logs,
-        {
-          $splice: [[index, 1]]
-        }
-      )
+      clips: update(this.state.clips, {$splice: [[index, 1]]})
     });
-    let logs = this.state.logs;
-    if (index === 0) {
-      logs.shift();
-    }
-    const updatedData = logs.length === 0 ? '' : logs.reduce((data, log, i) =>
-      i === index ? data : `${data}\n${log}`);
-    ipcRenderer.send('delete-log', updatedData);
   }
 
-  readFile() {
-    const rl = readline.createInterface({
-      input: fs.createReadStream('log.txt')
-    });
-
-    rl.on('line', (line) => {
-      this.setState({logs: this.state.logs.concat(line)});
-    });
+  loadClips() {
+    this.setState({clips: ipcRenderer.sendSync('load-clips')});
   }
 
   handleOptionChange(event) {
     this.setState({enableServiceHook: event.target.value === 'true'});
-    ipcRenderer.send('set-service-hook', event.target.value === 'true');
+    ipcRenderer.send('enable-translate', event.target.value === 'true');
   }
 
   renderOption() {
@@ -85,10 +69,15 @@ export default class ClipList extends React.Component {
           {this.renderOption()}
         </div>
         <div style = {{flex: 3, borderStyle: 'solid', overflowY: 'scroll'}}>
-        {this.state.logs.map((content, i)=><Clip contents = {content}
-                                                 deleteLog = {this.deleteLog}
-                                                 index = {i}
-                                                 changeClicked = {this.state.changeClicked}/>)}
+        {this.state.clips.map((content, i) =>
+          <Clip
+            source={content.source}
+            google={content.google}
+            glosbe={content.glosbe}
+            deleteLog={this.deleteClip}
+            index={i}
+          />
+        )}
         </div>
         <button
           style = {{flex: 1}}
