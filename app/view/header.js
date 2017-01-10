@@ -21,7 +21,8 @@ export default class header extends React.Component {
           <div style={{flexBasis: 18}}/>
           <div style={{flexBasis: 18}}>
             <img src={'../resources/trash-closed/trash-closed@3x.png'}
-                 style={{height: 14, width: 14}}/>
+                 style={{height: 14, width: 14}}
+                 onClick={this.props.setDeleteEnabled}/>
           </div>
           <div style={{flexBasis: 14}}/>
           <div style={{flexBasis: 17}}>

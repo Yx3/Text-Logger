@@ -24,6 +24,32 @@ export default class Clip extends React.Component {
         borderBottomWidth: 1,
         borderColor: '#efeff2'
       }}>
+      {
+        this.props.enableDelete &&
+        <div style={{flexBasis: 37, display: 'flex'}}>
+          <div style={{flexBasis: 8}}/>
+          <div style={{
+            flexBasis: 14,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <img src={this.props.isChecked ?
+                       '../resources/delete_checked/delete@3x.png' :
+                       '../resources/delete_unchecked/delete@3x.png'
+                     }
+                 style={{height: 14, width: 14}}
+                 onClick={()=>{
+                   if (this.props.isChecked) {
+                     this.props.deleteCheckedClips(this.props.source);
+                     return;
+                   }
+                   this.props.addCheckedClips(this.props.source);
+                 }}/>
+          </div>
+          <div style={{flexBasis: 15}}/>
+        </div>
+      }
         <div style={{flexBasis: 10}}/>
         <div style={{flexBasis: 352, display: 'flex', flexDirection: 'column'}}>
           <div style={{flexBasis: 12}}/>

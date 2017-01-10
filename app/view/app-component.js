@@ -7,13 +7,20 @@ import autobind from 'autobind-decorator';
 export default class AppComponent extends React.Component {
   constructor() {
     super();
+    this.state = {
+      enableDelete: false
+    };
+  }
+
+  setDeleteEnabled() {
+    this.setState({enableDelete: !this.state.enableDelete});
   }
 
   render() {
     return (
       <div>
-        <Header/>
-        <ClipList/>
+        <Header setDeleteEnabled={this.setDeleteEnabled}/>
+        <ClipList enableDelete={this.state.enableDelete}/>
       </div>
     );
   }
