@@ -12,17 +12,17 @@ const mb = menubar({index: indexPath, height: 450});
 
 function notifyDone(contents) {
   notifier.notify({
-    title: 'Text logged',
-    message: `${contents.source} => ${contents.google}`,
-    icon: `${dir}/app/resources/app-icon-retina-white/app-icon-retina-white@3x.png`,
+    title: 'You just have scrapped text',
+    message: contents.source,
+    // icon: `${dir}/app/resources/app-icon-retina-white/app-icon-retina-white@3x.png`,
     sound: true
   });
 }
 
 function notifyErr(err) {
   notifier.notify({
-    title: 'Fail to log text',
-    message: `${err.message}`,
+    title: 'Fail to scrap text',
+    message: err.message,
     icon: `${dir}/app/resources/app-icon-retina-white/app-icon-retina-white@3x.png`,
     sound: true
   });
