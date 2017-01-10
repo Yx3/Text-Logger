@@ -12,7 +12,7 @@ export default class header extends React.Component {
         display: 'flex',
         flexDirection: 'column',
         height: 40,
-        background: '#1c92f0',
+        background: '#1c92f0'
       }}>
         <div style={{
           flexBasis: 16,
@@ -20,7 +20,7 @@ export default class header extends React.Component {
           marginTop: 12,
           marginBottom: 12,
           marginLeft: 16,
-          marginRight: 16,
+          marginRight: 16
         }}>
           <div style={{flexBasis: 20}}>
             <img src={'../resources/app-icon-retina-white/app-icon-retina-white@3x.png'}
