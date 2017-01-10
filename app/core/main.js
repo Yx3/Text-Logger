@@ -1,7 +1,7 @@
 import {app, globalShortcut, ipcMain} from 'electron';
 import fs from 'fs';
 import menubar from 'menubar';
-import notifier from '../lib/text-logger-notifier';
+import notifier from '../../lib/text-logger-notifier';
 import setting from '../setting.json';
 import {store, read, remove} from './database';
 
