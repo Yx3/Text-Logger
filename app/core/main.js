@@ -1,6 +1,7 @@
 import {app, globalShortcut, ipcMain} from 'electron';
 import fs from 'fs';
 import menubar from 'menubar';
+import notifier from '../../lib/text-logger-notifier';
 import setting from '../setting.json';
 import {store, read, remove} from './database';
 
@@ -10,13 +11,21 @@ const settingPath = `${dir}/app/setting.json`;
 const mb = menubar({index: indexPath, height: 450});
 
 function notifyDone(contents) {
-  // TODO: impl
-  console.log(contents);
+  notifier.notify({
+    title: 'You just have scrapped text',
+    message: contents.source,
+    // icon: `${dir}/app/resources/app-icon-retina-white/app-icon-retina-white@3x.png`,
+    sound: true
+  });
 }
 
 function notifyErr(err) {
-  // TODO: impl
-  console.log(err);
+  notifier.notify({
+    title: 'Fail to scrap text',
+    message: err.message,
+    icon: `${dir}/app/resources/app-icon-retina-white/app-icon-retina-white@3x.png`,
+    sound: true
+  });
 }
 
 function registerIPCListener() {
