@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router'
+import { Router, Route, hashHistory } from 'react-router';
 import App from './app-component';
-import Setting from './setting'
+import Setting from './setting';
 
 window.onload = () => {
   ReactDOM.render(
