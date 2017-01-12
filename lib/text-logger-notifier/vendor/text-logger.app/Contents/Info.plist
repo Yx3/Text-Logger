@@ -11,7 +11,7 @@
 	<key>CFBundleExecutable</key>
 	<string>text-logger</string>
 	<key>CFBundleIconFile</key>
-	<string>test</string>
+	<string>app</string>
 	<key>CFBundleIdentifier</key>
 	<string>nl.superalloy.oss.text-logger</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -54,7 +54,7 @@
 		<true/>
 	</dict>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2012-2016 Eloy Durán, Julien Blanchard. All rights reserved.</string>
+	<string>Copyright © 2017 Youngchan Kim</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

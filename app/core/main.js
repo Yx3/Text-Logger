@@ -8,13 +8,17 @@ import {store, read, remove} from './database';
 const dir = process.cwd();
 const indexPath = `file://${dir}/app/view/popup.html`;
 const settingPath = `${dir}/app/setting.json`;
-const mb = menubar({index: indexPath, height: 450});
+const mb = menubar({
+  index: indexPath,
+  height: 450,
+  icon: `${dir}/app/resources/icon-menubar/icon-menubar.png`
+});
 
 function notifyDone(contents) {
   notifier.notify({
     title: 'You just have scrapped text',
     message: contents.source,
-    // icon: `${dir}/app/resources/app-icon-retina-white/app-icon-retina-white@3x.png`,
+    // icon: `${dir}/app/resources/icon-app/icon-app@3x.png`,
     sound: true
   });
 }
@@ -23,7 +27,7 @@ function notifyErr(err) {
   notifier.notify({
     title: 'Fail to scrap text',
     message: err.message,
-    icon: `${dir}/app/resources/app-icon-retina-white/app-icon-retina-white@3x.png`,
+    // icon: `${dir}/app/resources/app-icon-retina-white/app-icon-retina-white@3x.png`,
     sound: true
   });
 }
