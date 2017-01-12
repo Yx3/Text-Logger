@@ -11,7 +11,7 @@ export default class header extends React.Component {
         <div style={{display: 'flex'}}>
           <div style={{flexBasis: 16}}/>
           <div style={{flexBasis: 20}}>
-            <img src={'../resources/app-icon-retina-white/app-icon-retina-white@3x.png'}
+            <img src={'../resources/icon-app/icon-app@3x.png'}
                  style={{height: 12, width: 12}}/>
           </div>
           <div style={{flexBasis: 13, flexShrink: 0}}/>
