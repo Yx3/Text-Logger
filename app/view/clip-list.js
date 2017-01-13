@@ -42,42 +42,55 @@ export default class ClipContainer extends React.Component {
       checkedClips: update(this.state.checkedClips, {$splice: [[clipIndex, 1]]})
     });
   }
+
+  renderDeleteBar() {
+    return (
+      <div style={{flexBasis: 47, display: 'flex', flexDirection: 'column'}}>
+        <div style={{flexBasis: 20}}/>
+        <div style={{display: 'flex', flexBasis: 15}}>
+          <div style={{flexBasis: 8}}/>
+          <div style={{flexBasis: 14}}>
+            <img src={this.state.clips.length === this.state.checkedClips.length ?
+              '../resources/delete_checked/delete@3x.png' :
+              '../resources/delete_unchecked/delete@3x.png'}
+                 style={{height: 14, width: 14}}
+                 onClick={()=> {
+                   if (this.state.clips.length === this.state.checkedClips.length) {
+                     this.setState({checkedClips: []});
+                     return;
+                   }
+                   this.setState({checkedClips: this.state.clips.map(clip=>clip.source)});
+                 }}/>
+          </div>
+          <div style={{flexBasis: 25}}/>
+          <div style={{
+            flexBasis: 13,
+            fontFamiliy: 'AppleSDGothicNeo-Regular',
+            color: '#9b9b9b',
+            fontSize: 12
+          }}>All
+          </div>
+          <div style={{flexGrow: 263}}/>
+          <div style={{
+            flexBasis: 51,
+            ontFamiliy: 'AppleSDGothicNeo-Regular',
+            color: this.state.checkedClips.length === 0 ? '#9b9b9b' : '#ff5555',
+            fontSize: 12
+          }}
+          onClick={()=>this.deleteClips()}>Delete ({this.state.checkedClips.length})
+          </div>
+        </div>
+        <div style={{flex: 12, flexShrink: 0}}/>
+      </div>
+    );
+  }
   // TODO : refactoring component
   render() {
     return (
-      <div style={{display: 'flex', height: 400}}>
-        <div style={{flexBasis: 14}}/>
-        <div style={{flexBasis: 372, display: 'flex', flexDirection: 'column'}}>
-          {this.props.enableDelete &&
-            <div style={{flexBasis: 47, display: 'flex', flexDirection: 'column'}}>
-              <div style={{flexBasis: 20}}/>
-              <div style={{display: 'flex', flexBasis: 15}}>
-                <div style={{flexBasis: 6}}/>
-                <div style={{flexBasis: 14}}>
-                  <img src={'../resources/delete_unchecked/delete@3x.png'}
-                       style={{height: 14, width: 14}}/>
-                </div>
-                <div style={{flexBasis: 25}}/>
-                <div style={{
-                  flexBasis: 13,
-                  fontFamiliy: 'AppleSDGothicNeo-Regular',
-                  color: '#9b9b9b',
-                  fontSize: 12
-                }}>All
-                </div>
-                <div style={{flexBasis: 263}}/>
-                <div style={{
-                  flexBasis: 51,
-                  ontFamiliy: 'AppleSDGothicNeo-Regular',
-                  color: this.state.checkedClips.length === 0 ? '#9b9b9b' : '#ff5555',
-                  fontSize: 12
-                }}
-                onClick={()=>this.deleteClips()}>Delete ({this.state.checkedClips.length})
-                </div>
-              </div>
-              <div style={{flexBasis: 12}}/>
-            </div>
-          }
+      <div style={{display: 'flex', flex: 1}}>
+        <div style={{flexBasis: 14, flexShrink: 0}}/>
+        <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
+          {this.props.enableDelete && this.renderDeleteBar() }
           {this.state.clips.map((content, i) =>
             <Clip
               source={content.source}
