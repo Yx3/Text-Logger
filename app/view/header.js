@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router';
+
 export default class header extends React.Component {
   constructor(props) {
     super(props);
@@ -26,10 +28,13 @@ export default class header extends React.Component {
           </div>
           <div style={{flexBasis: 14}}/>
           <div style={{flexBasis: 17}}>
-            <img src={'../resources/setting/setting@3x.png'}
-                 style={{height: 14, width: 14}}/>
-         </div>
-         <div style={{flexBasis: 17}}/>
+            <Link to='/Setting'>
+              <img
+                src={'../resources/setting/setting@3x.png'}
+                style={{height: 14, width: 14}}/>
+            </Link>
+          </div>
+          <div style={{flexBasis: 17}}/>
         </div>
         <div style={{flexBasis: 12}}/>
       </div>
