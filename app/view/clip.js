@@ -75,7 +75,7 @@ export default class Clip extends React.Component {
                     fontSize: 12,
                     color: '#2e3031',
                     fontFamily: 'Times New Roman, Georgia, Serif'
-                  }}>{this.props.source} </div>
+                  }}>{this.props.google} </div>
                   <div style={{flexBasis: 4}}/>
                 </div>
                 <div style={{flexBasis: 12}}/>
