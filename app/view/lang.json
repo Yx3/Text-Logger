@@ -1,6 +1,10 @@
 {
   "languages": [
     {
+      "lang": "Auto",
+      "value": "auto"
+    },
+    {
       "lang": "Afrikaans",
       "value": "af"
     },
