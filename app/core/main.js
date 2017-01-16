@@ -37,6 +37,7 @@ function registerIPCListener() {
   ipcMain.on('toggle-always-on-top', () => {
     setting.enableServiceHook = !setting.enableServiceHook;
     mb.setOption('alwaysOnTop', setting.enableServiceHook);
+    fs.writeFile(settingPath, JSON.stringify(setting, null, '  '));
   });
 }
 
