@@ -1,6 +1,7 @@
 {
   "enableServiceHook": true,
   "service": "google",
+  "notification": true,
   "googleSourceLanguage": "auto",
   "googleTargetLanguage": "ko",
   "glosbeSourceLanguage": "eng",
