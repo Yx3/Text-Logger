@@ -1,7 +1,7 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 import Select from 'react-select';
-import lang from './lang';
+import lang from '../resources/lang';
 
 @autobind
 export default class SettingView extends React.Component {

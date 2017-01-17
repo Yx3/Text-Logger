@@ -18,9 +18,9 @@ export default class AppComponent extends React.Component {
       appSetting: {
         launchOnStartup: false,
         showNotification: false,
-        enableTranslation: Setting.enableServiceHook,
-        sourceLanguage: Setting.googleSourceLanguage,
-        targetLanguage: Setting.googleTargetLanguage
+        enableTranslation: setting.enableServiceHook,
+        sourceLanguage: setting.googleSourceLanguage,
+        targetLanguage: setting.googleTargetLanguage
       }
     };
   }
@@ -44,16 +44,20 @@ export default class AppComponent extends React.Component {
 
   setSourceLanguage(lang) {
     ipcRenderer.send('change-source-lang', lang);
-    let newSetting = this.state.appSetting;
-    newSetting.sourceLanguage = lang;
-    this.setState({appSetting: newSetting});
+    this.setState({
+      appSetting: update(this.state.appSetting,
+        {sourceLanguage: {$set: lang}}
+      )
+    });
   }
 
   setTargetLanguage(lang) {
     ipcRenderer.send('change-target-lang', lang);
-    let newSetting = this.state.appSetting;
-    newSetting.targetLanguage = lang;
-    this.setState({appSetting: newSetting});
+    this.setState({
+      appSetting: update(this.state.appSetting,
+        {targetLanguage: {$set: lang}}
+      )
+    });
   }
 
   render() {

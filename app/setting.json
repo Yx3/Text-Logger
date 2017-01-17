@@ -3,7 +3,7 @@
   "service": "google",
   "notification": true,
   "googleSourceLanguage": "auto",
-  "googleTargetLanguage": "la",
+  "googleTargetLanguage": "ko",
   "glosbeSourceLanguage": "eng",
   "glosbeTargetLanguage": "kor"
 }
