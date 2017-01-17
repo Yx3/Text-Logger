@@ -38,6 +38,7 @@ export default class header extends React.Component {
           <div style={{flexBasis: 14}}/>
           <div style={{flexBasis: 17}}>
             {this.props.currentScene === 'clipList' ?
+            // TODO : change it using router later
               <img src={'../resources/setting/setting@3x.png'}
                    style={{height: 14, width: 14}}
                    onClick={()=>this.props.setCurrentScene('setting')}/> :

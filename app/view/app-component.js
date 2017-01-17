@@ -3,8 +3,9 @@ import ClipList from './clip-list';
 import Header from './header';
 import SettingView from './settingView';
 import autobind from 'autobind-decorator';
-import Setting from '../setting.json';
+import setting from '../setting.json';
 import {ipcRenderer} from 'electron';
+import update from 'react-addons-update';
 
 @autobind
 export default class AppComponent extends React.Component {
@@ -13,10 +14,11 @@ export default class AppComponent extends React.Component {
     this.state = {
       enableDelete: false,
       currentScene: 'clipList',
+      // TODO : change it using router later
       appSetting: {
         launchOnStartup: false,
         showNotification: false,
-        enableTranslation: Setting.enableServiceHook
+        enableTranslation: setting.enableServiceHook
       }
     };
   }
@@ -31,9 +33,11 @@ export default class AppComponent extends React.Component {
 
   toggleEnableTranslation() {
     ipcRenderer.send('enable-translate', !this.state.appSetting.enableTranslation);
-    let newSetting = this.state.appSetting;
-    newSetting.enableTranslation = !this.state.appSetting.enableTranslation;
-    this.setState({appSetting: newSetting});
+    this.setState({
+      appSetting: update(this.state.appSetting,
+        {enableTranslation: {$set: !this.state.appSetting.enableTranslation}}
+      )
+    });
   }
 
   render() {
