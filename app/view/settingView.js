@@ -1,11 +1,7 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 import Select from 'react-select';
-
-const options = [
-    { value: 'one', label: 'One' },
-    { value: 'two', label: 'Two' }
-];
+import lang from './lang';
 
 @autobind
 export default class SettingView extends React.Component {
@@ -75,8 +71,9 @@ export default class SettingView extends React.Component {
             <div style={{flexBasis: 33}}/>
             <div style={{flexBasis: 128}}>
               <Select
-                options={options}
-                onChange={()=>{}}
+                options={lang.languages}
+                onChange={(val)=>this.props.setSourceLanguage(val)}
+                value={this.props.appSetting.sourceLanguage}
                 placeholder="Detect language"
                 searchable={false}
               />
@@ -88,8 +85,9 @@ export default class SettingView extends React.Component {
             <div style={{flexBasis: 33}}/>
             <div style={{flexBasis: 128}}>
               <Select
-                options={options}
-                onChange={()=>{}}
+                options={lang.languages}
+                onChange={(val)=>this.props.setTargetLanguage(val)}
+                value={this.props.appSetting.targetLanguage}
                 placeholder="Translation"
                 searchable={false}
               />
@@ -103,13 +101,23 @@ export default class SettingView extends React.Component {
             borderColor: '#efeff2'}}/>
           <div style={{flexBasis: 30}}/>
           <div style={{flexBasis: 16, display: 'flex'}}>
-            <div style={{flexBasis: 66, fontSize: 14, color: '#a6a6a6'}}> Shortcuts </div>
+            <div style={{
+              flexBasis: 66,
+              fontSize: 14,
+              color: '#a6a6a6',
+              fontFamily: 'SanFranciscoText-Semibold'
+            }}> Shortcuts </div>
             <div style={{flexGrow: 243}}/>
             <div style={{flexBasis: 31, fontSize: 12, color: '#4a90e2'}}> Reset </div>
           </div>
           <div style={{flexBasis: 17}}/>
           <div style={{flexBasis: 22, display: 'flex', alignItems: 'center'}}>
-            <div style={{flexBasis: 29, fontSize: 12, color: '#2e3031'}}>Copy</div>
+            <div style={{
+              flexBasis: 29,
+              fontSize: 12,
+              color: '#2e3031',
+              fontFamily: 'SanFranciscoText-Semibold'
+            }}>Copy</div>
             <div style={{flexBasis: 24}}/>
             <div style={{
               flexGrow: 274,
@@ -122,7 +130,12 @@ export default class SettingView extends React.Component {
           </div>
           <div style={{flexBasis: 17}}/>
           <div style={{flexBasis: 22, display: 'flex', alignItems: 'center'}}>
-            <div style={{flexBasis: 29, fontSize: 12, color: '#2e3031'}}>Save</div>
+            <div style={{
+              flexBasis: 29,
+              fontSize: 12,
+              color: '#2e3031',
+              fontFamily: 'SanFranciscoText-Semibold'
+            }}>Save</div>
             <div style={{flexBasis: 24}}/>
             <div style={{
               flexGrow: 274,

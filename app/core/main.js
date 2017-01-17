@@ -26,6 +26,14 @@ function registerIPCListener() {
     setting.enableServiceHook = arg;
     fs.writeFile(settingPath, JSON.stringify(setting, null, '  '));
   });
+  ipcMain.on('change-source-lang', (event, lang) => {
+    setting.googleSourceLanguage = lang.value;
+    fs.writeFile(settingPath, JSON.stringify(setting, null, '  '));
+  });
+  ipcMain.on('change-target-lang', (event, lang) => {
+    setting.googleTargetLanguage = lang.value;
+    fs.writeFile(settingPath, JSON.stringify(setting, null, '  '));
+  });
 }
 
 function hotKeysPressed() {

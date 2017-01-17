@@ -20,7 +20,6 @@ export default class Clip extends React.Component {
         <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
           <div style={{flexBasis: 12}}/>
           <div style={{
-            fontFamily: 'SanFranciscoText-Regular',
             fontSize: 12}}>
             {this.props.source}
           </div>
@@ -53,8 +52,7 @@ export default class Clip extends React.Component {
                     {
                       flex: 1,
                       fontSize: 12,
-                      color: '#2e3031',
-                      fontFamily: 'SanFranciscoText-Regular'
+                      color: '#2e3031'
                     }}>{this.props.source} </div>
                   <div style={{flexBasis: 4}}/>
                 </div>
@@ -74,7 +72,7 @@ export default class Clip extends React.Component {
                     flex: 1,
                     fontSize: 12,
                     color: '#2e3031',
-                    fontFamily: 'Times New Roman, Georgia, Serif'
+                    fontFamily: 'NotoSansKR-Regular'
                   }}>{this.props.google} </div>
                   <div style={{flexBasis: 4}}/>
                 </div>
