@@ -14,8 +14,8 @@ export async function store(cb) {
 
   const contents = new Contents(clip, tranGoogle, tranGlosbe);
   db.put(contents.source, contents, err => {
-    if (err) throw err;
-    cb(contents);
+    if (err) return cb(err);
+    return cb(null, contents);
   });
 }
 
