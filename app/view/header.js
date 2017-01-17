@@ -25,7 +25,7 @@ export default class header extends React.Component {
               fontSize: 12,
               color: '#ffffff',
               fontFamily: 'SanFranciscoText-Regular'
-            }}>| Beta version</span>
+            }}>&nbsp; | &nbsp;Beta version</span>
           </div>
           <div style={{flexBasis: 18}}/>
           <div style={{flexBasis: 18}}>

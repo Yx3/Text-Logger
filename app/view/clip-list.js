@@ -86,7 +86,7 @@ export default class ClipContainer extends React.Component {
           <div style={{flexGrow: 263}}/>
           <div style={{
             flexBasis: 51,
-            ontFamiliy: 'AppleSDGothicNeo-Regular',
+            fontFamiliy: 'AppleSDGothicNeo-Regular',
             color: this.state.checkedClips.length === 0 ? '#9b9b9b' : '#ff5555',
             fontSize: 12
           }}

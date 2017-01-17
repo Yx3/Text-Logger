@@ -16,7 +16,9 @@ export default class AppComponent extends React.Component {
       appSetting: {
         launchOnStartup: false,
         showNotification: false,
-        enableTranslation: Setting.enableServiceHook
+        enableTranslation: Setting.enableServiceHook,
+        sourceLanguage: Setting.googleSourceLanguage,
+        targetLanguage: Setting.googleTargetLanguage
       }
     };
   }
@@ -36,6 +38,20 @@ export default class AppComponent extends React.Component {
     this.setState({appSetting: newSetting});
   }
 
+  setSourceLanguage(lang) {
+    ipcRenderer.send('change-source-lang', lang);
+    let newSetting = this.state.appSetting;
+    newSetting.sourceLanguage = lang;
+    this.setState({appSetting: newSetting});
+  }
+
+  setTargetLanguage(lang) {
+    ipcRenderer.send('change-target-lang', lang);
+    let newSetting = this.state.appSetting;
+    newSetting.targetLanguage = lang;
+    this.setState({appSetting: newSetting});
+  }
+
   render() {
     return (
       <div style={{height: window.innerHeight, background: '#fbfbfb'}}>
@@ -46,7 +62,9 @@ export default class AppComponent extends React.Component {
           <ClipList enableDelete={this.state.enableDelete}
                     enableTranslation={this.state.appSetting.enableTranslation}/> :
           <SettingView appSetting={this.state.appSetting}
-                       toggleEnableTranslation={this.toggleEnableTranslation}/>
+                       toggleEnableTranslation={this.toggleEnableTranslation}
+                       setSourceLanguage={this.setSourceLanguage}
+                       setTargetLanguage={this.setTargetLanguage}/>
         }
       </div>
     );
