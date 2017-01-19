@@ -72,7 +72,7 @@ export default class SettingView extends React.Component {
             <div style={{flexBasis: 128}}>
               <Select
                 options={lang.languages}
-                onChange={(val)=>this.props.setSourceLanguage(val)}
+                onChange={this.props.setSourceLanguage}
                 value={this.props.appSetting.sourceLanguage}
                 placeholder="Detect language"
                 searchable={false}
@@ -86,7 +86,7 @@ export default class SettingView extends React.Component {
             <div style={{flexBasis: 128}}>
               <Select
                 options={lang.languages}
-                onChange={(val)=>this.props.setTargetLanguage(val)}
+                onChange={this.props.setTargetLanguage}
                 value={this.props.appSetting.targetLanguage}
                 placeholder="Translation"
                 searchable={false}
