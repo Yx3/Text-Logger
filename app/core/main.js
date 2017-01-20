@@ -34,6 +34,11 @@ function registerIPCListener() {
     setting.googleTargetLanguage = lang.value;
     fs.writeFile(settingPath, JSON.stringify(setting, null, '  '));
   });
+  ipcMain.on('toggle-always-on-top', () => {
+    setting.alwaysOnTop = !setting.alwaysOnTop;
+    mb.setOption('alwaysOnTop', setting.alwaysOnTop);
+    fs.writeFile(settingPath, JSON.stringify(setting, null, '  '));
+  });
 }
 
 function hotKeysPressed() {
