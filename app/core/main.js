@@ -35,8 +35,8 @@ function registerIPCListener() {
     fs.writeFile(settingPath, JSON.stringify(setting, null, '  '));
   });
   ipcMain.on('toggle-always-on-top', () => {
-    setting.enableServiceHook = !setting.enableServiceHook;
-    mb.setOption('alwaysOnTop', setting.enableServiceHook);
+    setting.alwaysOnTop = !setting.alwaysOnTop;
+    mb.setOption('alwaysOnTop', setting.alwaysOnTop);
     fs.writeFile(settingPath, JSON.stringify(setting, null, '  '));
   });
 }
